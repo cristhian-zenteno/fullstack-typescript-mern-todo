@@ -1,7 +1,15 @@
 {
   "env": {
-    "MONGO_USER": "your-username",
-    "MONGO_PASSWORD": "your-password",
-    "MONGO_DB": "your-db-name"
-  }
+    "MONGO_USER": "root",
+    "MONGO_PASSWORD": "123",
+    "MONGO_DB": "todo_db"
+  },
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**/node_modules"],
+  "verbose": true,
+  "execMap": {
+    "ts": "node --require ts-node/register"
+  },
+  "watch": ["src/"],
+  "ext": "js,json,ts"
 }
