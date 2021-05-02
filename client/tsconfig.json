@@ -32,5 +32,11 @@
   "exclude": [
     "node_modules",
     "build"
+  ],
+  "types": [
+    "node",
+    "webdriverio/async",
+    "@wdio/cucumber-framework",
+    "@wdio/devtools-service"
   ]
 }
