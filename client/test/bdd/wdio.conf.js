@@ -142,7 +142,7 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./test/bdd/features/step-definitions/steps.ts'],
+        require: ['./test/bdd/step-definitions/**/*.ts'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -293,19 +293,5 @@ exports.config = {
     * @param {String} newSessionId session ID of the new session
     */
     //onReload: function(oldSessionId, newSessionId) {
-    //}
-    autoCompileOpts: {
-        autoCompile: true,
-        // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
-        // for all available options
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: 'tsconfig.json'
-        },
-        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
-        // do please make sure "tsconfig-paths" is installed as dependency
-        tsConfigPathsOpts: {
-            baseUrl: './'
-        }
-    }
+    //}    
 }
