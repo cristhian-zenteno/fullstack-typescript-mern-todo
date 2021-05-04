@@ -22,7 +22,7 @@ const Todo: React.FC<Props> = ({ todo, updateTodo, deleteTodo }) => {
         </button>
         <button
           onClick={() => deleteTodo(todo._id)}
-          className='Card--button__delete'
+          className='Card--button__delete at-todo-item-delete'
         >
           Delete
         </button>
