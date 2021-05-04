@@ -24,13 +24,14 @@ When("I add a Todo", async () => {
           item.$("at-todo-item-description").getText() === description
       ),
     {
-      timeout: 10000,
-      timeoutMsg: "todo item to be appears after 10s",
+      timeout: 5000,
+      timeoutMsg: "todo item to be appears after 5s",
     }
   );
 });
 
 Then("the todo list has the following items:", async (table: DataTable) => {
+  await browser.pause(1000);
   const todoList = await TodosPage.getTodoList();
   expect(todoList.length).toBe(table.rows().length);
   if (todoList.length === table.rows().length) {

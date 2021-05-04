@@ -1,3 +1,4 @@
+@clean-database
 Feature: Add to do
 
   Add to do to todo list
