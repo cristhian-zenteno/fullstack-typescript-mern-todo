@@ -1,6 +1,15 @@
 class TodosPage {
   open() {
-    return browser.url("http://localhost:3000");
+    browser.url("http://localhost:3000");
+    browser.setTimeout({ pageLoad: 10000 });
+  }
+
+  getElementByClass(className: string) {
+    return $(`.${className}`);
+  }
+
+  getTodoList(){
+    return $$(".at-todo-item");
   }
 }
 
