@@ -1,4 +1,4 @@
-import mongoose, { NativeError } from "mongoose";
+import mongoose from "mongoose";
 
 const MONGO_USER = "root";
 const MONGO_PASSWORD = 123;
@@ -9,7 +9,7 @@ export const dropDataBase = async () => {
   try {
     mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = mongoose.connection;
-    await db.dropCollection("todos", (err: NativeError) => {
+    await db.dropCollection("todos", (err) => {
       if (err) {
         console.error(err);
       } else {
