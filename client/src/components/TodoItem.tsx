@@ -16,7 +16,7 @@ const Todo: React.FC<Props> = ({ todo, updateTodo, deleteTodo }) => {
       <div className='Card--button'>
         <button
           onClick={() => updateTodo(todo)}
-          className={todo.status ? `hide-button` : 'Card--button__done'}
+          className={(todo.status ? `hide-button` : 'Card--button__done') + " at-todo-item-done"}
         >
           Complete
         </button>

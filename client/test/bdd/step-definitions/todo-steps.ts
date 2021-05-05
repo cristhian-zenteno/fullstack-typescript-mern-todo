@@ -79,3 +79,22 @@ When("I delete the todo:", async (table: DataTable) => {
   await (await todo.$(".at-todo-item-delete")).click();
   await browser.pause(1000);
 });
+
+When(
+  "I complete the todo with name {string} and description {string}",
+  async (name: string, description: string) => {
+    const todo = await TodosPage.getTodoItem(name, description);
+    (await todo.$(".at-todo-item-done")).click();
+    await browser.pause(1000);
+  }
+);
+
+Then(
+  "the todo with name {string} and description {string} is disabled",
+  async (name: string, description: string) => {
+    const todo = await TodosPage.getTodoItem(name, description);
+    const doneButton = await todo.$(".at-todo-item-done");
+    const isDisplayed: boolean = await doneButton.isDisplayed();
+    expect(isDisplayed).toBe(false);
+  }
+);

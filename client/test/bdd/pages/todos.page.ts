@@ -8,8 +8,19 @@ class TodosPage {
     return $(`.${className}`);
   }
 
-  getTodoList(){
+  getTodoList() {
     return $$(".at-todo-item");
+  }
+
+  async getTodoItem(name: string, description: string) {
+    const todoList = await this.getTodoList();
+    return todoList.find(async (todoItem) => {
+      const todoName = (await todoItem.$(".at-todo-item-name")).getText();
+      const todoDescription = (
+        await todoItem.$(".at-todo-item-description")
+      ).getText();
+      return todoName === name && todoDescription === description;
+    });
   }
 }
 
