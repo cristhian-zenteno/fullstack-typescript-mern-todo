@@ -21,7 +21,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "bdd": "TS_NODE_PROJECT=test/bdd/tsconfig.wdio.json npx wdio run test/bdd/wdio.conf.js"
+        "bdd": "wdio run test/bdd/wdio.conf.js"
     },
     "eslintConfig": {
         "extends": "react-app"
