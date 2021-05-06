@@ -52,25 +52,25 @@ Then(
   }
 );
 
-When("I delete the to-do:", async (table: DataTable) => {
-  const todoList = await TodosPage.getAllTodos();
-  const todo = todoList.find(async (todoItem) => {
-    const name = (await todoItem.$(".at-todo-item-name")).getText();
-    const description = (
-      await todoItem.$(".at-todo-item-description")
-    ).getText();
-    return table
-      .rows()
-      .some((item) => name === item[0] && description === item[1]);
-  });
-  expect(todo).toBeDefined();
-  const initialTodoLength = (await TodosPage.getAllTodos()).length;
-  await (await todo.$(".at-todo-item-delete")).click();
-  await browser.waitUntil(
-    async () => (await TodosPage.getAllTodos()).length < initialTodoLength,
-    { timeout: 2000 }
-  );
-});
+When(
+  "I delete the to-do with name {string} and description {string}",
+  async (name: string, description: string) => {
+    const todoList = await TodosPage.getAllTodos();
+    const todo = todoList.find(async (todoItem) => {
+      const itemName = (await todoItem.$(".at-todo-item-name")).getText();
+      const itemDescription = (
+        await todoItem.$(".at-todo-item-description")
+      ).getText();
+      return itemName === name && itemDescription === description;
+    });
+    const initialTodoLength = (await TodosPage.getAllTodos()).length;
+    await (await todo.$(".at-todo-item-delete")).click();
+    await browser.waitUntil(
+      async () => (await TodosPage.getAllTodos()).length < initialTodoLength,
+      { timeout: 2000 }
+    );
+  }
+);
 
 When(
   "I mark the to-do with name {string} and description {string} as completed",
