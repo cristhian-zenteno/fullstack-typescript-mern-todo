@@ -23,3 +23,32 @@ So, let's start by planning the API.
     - [Display a Todo](#display-a-todo)
   - [Fetch and Display data](#fetch-and-display-data)
 - [Resources](#resources)
+
+
+## Using BDD
+
+To run the BDD scenarios
+
+In the root directory
+
+`docker-compose pull`
+
+`docker-compose up -d`
+
+In the root directory to run backend side
+
+`cd server`
+
+`npm start`
+
+In the root directory to run client side
+
+`cd client`
+
+`npm start`
+
+In the root directory to run bdd scenarios
+
+`cd client`
+
+`npm run bdd`
