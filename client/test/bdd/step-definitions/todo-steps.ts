@@ -56,14 +56,18 @@ When("I delete the todo:", async (table: DataTable) => {
   const todoList = await TodosPage.getAllTodos();
   const todo = todoList.find(async (todoItem) => {
     const name = (await todoItem.$(".at-todo-item-name")).getText();
-    const description = await todoItem.$(".at-todo-item-description").getText();
+    const description = (await todoItem.$(".at-todo-item-description")).getText();
     return table
       .rows()
       .some((item) => name === item[0] && description === item[1]);
   });
   expect(todo).toBeDefined();
+  const initialTodoLength = (await TodosPage.getAllTodos()).length;
   await (await todo.$(".at-todo-item-delete")).click();
-  await browser.pause(1000);
+  await browser.waitUntil(
+    async () => (await TodosPage.getAllTodos()).length < initialTodoLength,
+    { timeout: 2000 }
+  );
 });
 
 When(
@@ -71,7 +75,6 @@ When(
   async (name: string, description: string) => {
     const todo = await TodosPage.getTodoItem(name, description);
     (await todo.$(".at-todo-item-done")).click();
-    await browser.pause(1000);
   }
 );
 
