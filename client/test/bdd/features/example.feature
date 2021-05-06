@@ -1,8 +1,8 @@
-@only
-Feature: Feature name
+# @only
+# Feature: Feature name
 
-  Feature Description
+#   Feature Description
 
-  Scenario: Scenario name
+#   Scenario: Scenario name
 
-    Given Start to type your Given step here
+#     Given Start to type your Given step here

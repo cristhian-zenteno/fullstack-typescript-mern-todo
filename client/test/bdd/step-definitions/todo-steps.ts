@@ -16,21 +16,12 @@ When(
     const addButton = await TodosPage.getElementByClass("at-add-todo-button");
     await nameField.setValue(name);
     await descriptionField.setValue(description);
+    const initialTodoLength = (await TodosPage.getTodoList()).length;    
     await addButton.click();
-    const todolist = await TodosPage.getTodoList();
-    browser.waitUntil(
-      () =>
-        todolist.find(
-          (item) =>
-            item.$("at-todo-item-name").getText() === name &&
-            item.$("at-todo-item-description").getText() === description
-        ),
-      {
-        timeout: 5000,
-        timeoutMsg: "todo item to be appears after 5s",
-      }
+    await browser.waitUntil(
+      async () => (await TodosPage.getTodoList()).length > initialTodoLength,
+      { timeout: 2000 }
     );
-    await browser.pause(1000);
   }
 );
 
