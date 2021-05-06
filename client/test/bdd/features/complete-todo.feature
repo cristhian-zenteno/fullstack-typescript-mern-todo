@@ -1,13 +1,13 @@
-@clean-database
-Feature: complete a todo
+@clean-list
+Feature: Complete a to-do
 
-  Complete a todo
+  As a user, I need to register when I have completed a to-do on my list
 
-  Scenario: complete a todo
+  Scenario: complete a to-do of my list
     Given I am in My Todos page
-    And I add the Todo with name "todo 1" and description "description of todo 1"
-    When I complete the todo with name "todo 1" and description "description of todo 1"
-    Then the todo list has the following items:
-      | name   | description           |
-      | todo 1 | description of todo 1 |
-    And the todo with name "todo 1" and description "description of todo 1" is disabled
+    And I add a to-do with name "read javascript book" and description "read book for exam"
+    When I mark the to-do with name "read javascript book" and description "read book for exam" as completed
+    Then the following items are on my to-do list:
+      | name                 | description        |
+      | read javascript book | read book for exam |
+    And the to-do with name "read javascript book" and description "read book for exam" is disabled

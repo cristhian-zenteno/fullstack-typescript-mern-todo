@@ -1,14 +1,14 @@
-@clean-database
-Feature: delete todo
+@clean-list
+Feature: Delete to-dos from my list
 
-  delete todo
+  As a user, I need to delete to-dos from my to-do list
 
-  Scenario: delete todo
+  Scenario: delete a todo
     Given I am in My Todos page
-    And I add the Todo with name "todo 1" and description "description of todo 1"
-    When I delete the todo:
-      | name   | description           |
-      | todo 1 | description of todo 1 |
-    Then the todo list has not the following items:
-      | name   | description           |
-      | todo 1 | description of todo 1 |
+    And I add a to-do with name "read javascript book" and description "read book for exam"
+    When I delete the to-do:
+      | name                 | description        |
+      | read javascript book | read book for exam |
+    Then the following items are not on my to-do list:
+      | name                 | description        |
+      | read javascript book | read book for exam |

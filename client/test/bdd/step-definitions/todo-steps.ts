@@ -7,7 +7,7 @@ Given("I am in My Todos page", async () => {
 });
 
 When(
-  "I add the Todo with name {string} and description {string}",
+  "I add a to-do with name {string} and description {string}",
   async (name: string, description: string) => {
     await (await TodosPage.nameField).setValue(name);
     await (await TodosPage.descriptionField).setValue(description);
@@ -20,7 +20,7 @@ When(
   }
 );
 
-Then("the todo list is as follows:", async (table: DataTable) => {
+Then("the to-do list is as follows:", async (table: DataTable) => {
   const todoList = await TodosPage.getAllTodos();
   expect(todoList.length).toBe(table.rows().length);
   if (todoList.length === table.rows().length) {
@@ -35,7 +35,7 @@ Then("the todo list is as follows:", async (table: DataTable) => {
 });
 
 Then(
-  /^the todo list has( not)? the following items:$/,
+  /^the following items are( not)? on my to-do list:$/,
   async (not: string, table: DataTable) => {
     const todoList = await TodosPage.getAllTodos();
     let found: boolean = todoList.some(async (todoItem) => {
@@ -52,11 +52,13 @@ Then(
   }
 );
 
-When("I delete the todo:", async (table: DataTable) => {
+When("I delete the to-do:", async (table: DataTable) => {
   const todoList = await TodosPage.getAllTodos();
   const todo = todoList.find(async (todoItem) => {
     const name = (await todoItem.$(".at-todo-item-name")).getText();
-    const description = (await todoItem.$(".at-todo-item-description")).getText();
+    const description = (
+      await todoItem.$(".at-todo-item-description")
+    ).getText();
     return table
       .rows()
       .some((item) => name === item[0] && description === item[1]);
@@ -71,7 +73,7 @@ When("I delete the todo:", async (table: DataTable) => {
 });
 
 When(
-  "I complete the todo with name {string} and description {string}",
+  "I mark the to-do with name {string} and description {string} as completed",
   async (name: string, description: string) => {
     const todo = await TodosPage.getTodoItem(name, description);
     (await todo.$(".at-todo-item-done")).click();
@@ -79,7 +81,7 @@ When(
 );
 
 Then(
-  "the todo with name {string} and description {string} is disabled",
+  "the to-do with name {string} and description {string} is disabled",
   async (name: string, description: string) => {
     const todo = await TodosPage.getTodoItem(name, description);
     const doneButton = await todo.$(".at-todo-item-done");
