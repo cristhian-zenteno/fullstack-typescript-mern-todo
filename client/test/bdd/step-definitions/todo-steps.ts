@@ -9,24 +9,19 @@ Given("I am in My Todos page", async () => {
 When(
   "I add the Todo with name {string} and description {string}",
   async (name: string, description: string) => {
-    const nameField = await TodosPage.getElementByClass("at-name");
-    const descriptionField = await TodosPage.getElementByClass(
-      "at-description"
-    );
-    const addButton = await TodosPage.getElementByClass("at-add-todo-button");
-    await nameField.setValue(name);
-    await descriptionField.setValue(description);
-    const initialTodoLength = (await TodosPage.getTodoList()).length;    
-    await addButton.click();
+    await (await TodosPage.nameField).setValue(name);
+    await (await TodosPage.descriptionField).setValue(description);
+    const initialTodoLength = (await TodosPage.getAllTodos()).length;
+    await (await TodosPage.addTodoButton).click();
     await browser.waitUntil(
-      async () => (await TodosPage.getTodoList()).length > initialTodoLength,
+      async () => (await TodosPage.getAllTodos()).length > initialTodoLength,
       { timeout: 2000 }
     );
   }
 );
 
 Then("the todo list is as follows:", async (table: DataTable) => {
-  const todoList = await TodosPage.getTodoList();
+  const todoList = await TodosPage.getAllTodos();
   expect(todoList.length).toBe(table.rows().length);
   if (todoList.length === table.rows().length) {
     todoList.forEach(async (todoItem, i) => {
@@ -42,7 +37,7 @@ Then("the todo list is as follows:", async (table: DataTable) => {
 Then(
   /^the todo list has( not)? the following items:$/,
   async (not: string, table: DataTable) => {
-    const todoList = await TodosPage.getTodoList();
+    const todoList = await TodosPage.getAllTodos();
     let found: boolean = todoList.some(async (todoItem) => {
       const name = (await todoItem.$(".at-todo-item-name")).getText();
       const description = (
@@ -58,7 +53,7 @@ Then(
 );
 
 When("I delete the todo:", async (table: DataTable) => {
-  const todoList = await TodosPage.getTodoList();
+  const todoList = await TodosPage.getAllTodos();
   const todo = todoList.find(async (todoItem) => {
     const name = (await todoItem.$(".at-todo-item-name")).getText();
     const description = await todoItem.$(".at-todo-item-description").getText();

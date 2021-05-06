@@ -4,16 +4,29 @@ class TodosPage {
     browser.setTimeout({ pageLoad: 10000 });
   }
 
+
+  get nameField(){
+    return $(".at-name");
+  }
+
+  get descriptionField(){
+    return $(".at-description");
+  }
+
+  get addTodoButton(){
+    return $(".at-add-todo-button");
+  }
+  
   getElementByClass(className: string) {
     return $(`.${className}`);
   }
 
-  getTodoList() {
+  getAllTodos() {
     return $$(".at-todo-item");
   }
 
   async getTodoItem(name: string, description: string) {
-    const todoList = await this.getTodoList();
+    const todoList = await this.getAllTodos();
     return todoList.find(async (todoItem) => {
       const todoName = (await todoItem.$(".at-todo-item-name")).getText();
       const todoDescription = (
