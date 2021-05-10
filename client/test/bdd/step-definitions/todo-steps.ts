@@ -33,3 +33,57 @@ Then("the to-do list is as follows:", async (table: DataTable) => {
     });
   }
 });
+
+When(
+  "I delete the to-do with name {string} and description {string}",
+  async function (name: string, description: string) {
+    const todoList = await TodosPage.getAllTodos();
+    const todo = todoList.find(async (todoItem) => {
+      const itemName = (await todoItem.$(".at-todo-item-name")).getText();
+      const itemDescription = (
+        await todoItem.$(".at-todo-item-description")
+      ).getText();
+      return itemName === name && itemDescription === description;
+    });
+    const initialTodoLength = (await TodosPage.getAllTodos()).length;
+    await (await todo.$(".at-todo-item-delete")).click();
+    await browser.waitUntil(
+      async () => (await TodosPage.getAllTodos()).length < initialTodoLength,
+      { timeout: 2000 }
+    );
+  }
+);
+
+Then(
+  /^the following items are( not)? on my to-do list:$/,
+  async (not: string, table: DataTable) => {
+    const todoList = await TodosPage.getAllTodos();
+    let found: boolean = todoList.some(async (todoItem) => {
+      const name = (await todoItem.$(".at-todo-item-name")).getText();
+      const description = (
+        await todoItem.$(".at-todo-item-description")
+      ).getText();
+      return table
+        .rows()
+        .some((item) => name === item[0] && description === item[1]);
+    });
+    found = not ? !found : found;
+    expect(found).toBe(true);
+  }
+);
+
+When(
+  "I mark the to-do with name {string} and description {string} as completed",
+  async (name: string, description: string) => {
+    const todo = await TodosPage.getTodoItem(name, description);
+    (await todo.$(".at-todo-item-done")).click();
+  }
+);
+
+Then(
+  "the to-do with name {string} and description {string} is disabled",
+  async (name: string, description: string) => {
+    // insert code here
+    return "pending";
+  }
+);

@@ -163,7 +163,7 @@ exports.config = {
         // <string[]> (name) specify the profile to use
         profile: [],
         // <boolean> fail if there are any undefined or pending steps
-        strict: false,
+        strict: true,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '',
         // <number> timeout for step definitions

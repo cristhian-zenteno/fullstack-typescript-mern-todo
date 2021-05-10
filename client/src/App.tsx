@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TodoItem from './components/TodoItem'
 import AddTodo from './components/AddTodo'
-import { getTodos, addTodo, updateTodo } from './API'
+import { getTodos, addTodo, updateTodo, deleteTodo } from './API'
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([])
@@ -39,6 +39,17 @@ const App: React.FC = () => {
       .catch((err) => console.log(err))
   }
 
+  const handleDeleteTodo = (_id: string): void => {
+    deleteTodo(_id)
+    .then(({ status, data }) => {
+        if (status !== 200) {
+          throw new Error('Error! Todo not deleted')
+        }
+        setTodos(data.todos)
+      })
+      .catch((err) => console.log(err))
+  }
+
   return (
     <main className='App'>
       <h1>My Todos</h1>
@@ -47,6 +58,7 @@ const App: React.FC = () => {
         <TodoItem
           key={todo._id}
           updateTodo={handleUpdateTodo}
+          deleteTodo={handleDeleteTodo}
           todo={todo}
         />
       ))}
